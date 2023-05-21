@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>İletişim Formu</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>İletişim Formu</h1>
+    
+    <form @submit.prevent="submitForm" v-if="!formGonderildi">
+      <label for="name">Ad:</label>
+      <input type="text" id="name" v-model="formData.ad" required>
+
+      <label for="email">E-posta:</label>
+      <input type="email" id="email" v-model="formData.eposta" required>
+
+      <label for="message">Mesaj:</label>
+      <textarea id="message" v-model="formData.mesaj" required></textarea>
+
+      <button type="submit">Gönder</button>
+      <button type="button" @click="temizle">Temizle</button>
+    </form>
+
+    <div bildiri="formGonderildi">
+      <h2>Gönderilen Bilgiler</h2>
+      <p><strong>Ad:</strong> {{ formData.ad }}</p>
+      <p><strong>E-posta:</strong> {{ formData.eposta }}</p>
+      
+      <p><strong>Mesaj:</strong> {{ formData.mesaj }}</p>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        formData: {
+          ad: '',
+          eposta: '',
+          mesaj: ''
+        },
+        formGonderildi: false
+      },
+      methods: {
+        submitForm() {
+         
+          if (this.formData.ad.trim() === '') {
+            alert('Lütfen adınızı girin.');
+            return;
+          }
+
+          if (this.formData.eposta.trim() === '') {
+            alert('Lütfen e-posta adresinizi girin.');
+            return;
+          }
+
+          if (!this.epostaGecerliMi(this.formData.eposta)) {
+            alert('Geçerli bir e-posta adresi girin.');
+            return;
+          }
+
+          if (this.formData.mesaj.trim() === '') {
+            alert('Lütfen bir mesaj girin.');
+            return;
+          }
+
+          this.formGonderildi = true;
+        },
+        temizle() {
+          this.formData.ad = '';
+          this.formData.eposta = '';
+          this.formData.mesaj = '';
+        },
+        epostaGecerliMi(eposta) {
+          
+          const epostaDeneme = /^\S+@\S+\.\S+$/;
+          return epostaDeneme.test(eposta);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

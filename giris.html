@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Sayfası</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form onsubmit="return validateForm()">
+        <label for="username">Kullanıcı Adı:</label>
+        <input type="text" id="username" required><br><br>
+        
+        <label for="password">Şifre:</label>
+        <input type="password" id="password" required><br><br>
+        
+        <input type="submit" value="Giriş Yap">
+    </form>
+    
+    <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+           
+            if (username === "g221210084" && password === "123456789") {
+                window.location.href = "gerçekWeb.html"; 
+                return false;
+            } else {
+                alert("Hatalı kullanıcı adı veya şifre. Lütfen tekrar deneyin.");
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
